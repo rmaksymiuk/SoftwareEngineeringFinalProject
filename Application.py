@@ -18,3 +18,17 @@ class Application:
         opener = "open" if sys.platform == "darwin" else "xdg-open"
         subprocess.call([opener, self.filename])
 
+    def fillClientRequestDetailsForm(self):
+        return
+
+    def fillFinancialRequest(self):
+        return
+
+    def fillRecruitmentRequest(self):
+        return
+
+    def fillRequestForEventPlanning(self):
+        return
+
+
+

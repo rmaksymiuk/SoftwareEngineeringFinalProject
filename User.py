@@ -15,9 +15,8 @@ class User:
             return True
         else:
             return False
-        return
 
 
     def fillApplication(self, application):
-
+        #call one of the application.fill functions here
         return
