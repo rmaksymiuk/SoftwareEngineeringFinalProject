@@ -12,9 +12,9 @@ class Hub:
         else:
             print("Sorry, there seems to be a problem with you username or pasword")
             print("Please try again")
+
     def mainMenu(self):
-        print('1. Create an form')
-        print('2. Submit a form')
-        print('3. Show current form')
-        print('4. Show my profile')
+        print('1. Create a form')
+        print('2. Show current form')
+        print('3. Show my profile')
 
