@@ -3,6 +3,7 @@ import os , sys, subprocess, fnmatch
 
 # Create Interface for
 root = Tk()
+root.title('Search for your form')
 canvas1 = Canvas(root, width=400, height=300)
 canvas1.pack()
 entry1 = Entry(root)
