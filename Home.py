@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from User import User
 from Application import Application
+from EditForm import SearchFile
 
 # Callback functions for directing to desired files
 
@@ -46,7 +47,7 @@ def FRCallBack(user):
         return
 
 def EFCallBack(user):
-    import EditForm
+    SearchPage = SearchFile().mainloop()
 
 
 class HomePage(tk.Tk):
@@ -76,7 +77,6 @@ class HomePage(tk.Tk):
         B7.grid(row=11, column=3)
         B8 = tk.Button(self, text="Edit an existing Financial Request", command=lambda:EFCallBack(self.user))
         B8.grid(row=14, column=3)
-
 
 
 if __name__ == "__main__":
