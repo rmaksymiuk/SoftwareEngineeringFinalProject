@@ -4,20 +4,19 @@ import xlsxwriter
 
 import pandas as pd
 class Database:
-    def __init__(self, userList):
+    def __init__(self, userList = {}):
         self.fileList = []
         # Username : [Password, Position, Permission]
         # Permission Order:
         # [ClientRequestDetails, FinancialRequest, EventPlanningRequest, RecruitmentRequest]
-        if userList is None:
-            self.userList = {}
-        else:
-            self.userList = userList
+        self.userList = {}
         self.path = 'Database/database.xlsx'
+        self.permissions = {}
 
     def showDatabase(self):
         print(f'current applications: {self.fileList}')
         print(f'current users: {self.userList}')
+        print(f'permissions: {self.permissions}')
 
     def addFile(self, file):
         self.fileList.append(file)
@@ -51,6 +50,12 @@ class Database:
         df = pd.read_excel(self.path, sheet_name=sheet)#usecols=['UsernameList', 'PasswordList', 'FileList']
         self.fileList = df['FileList'].tolist()
         for i in range(len(df.UsernameList)):
-            self.userList[df.UsernameList[i]] = [df.PasswordList[i], df.Position[i], [y for y in df.Permission[i].split(',')]]
+            self.userList[df.UsernameList[i]] = df.PasswordList[i] #, df.Position[i], [y for y in df.Permission[i].split(',')]
 
-
+    def loadPermissions(self):
+        sheet = "Permissions"
+        df = pd.read_excel(self.path, sheet_name=sheet)
+        for i in range(len(df.Users)):
+            self.permissions[df.Users[i]] = \
+                [df.Position[i],
+                 [df.ClientRequest[i], df.EventPlanning[i], df.FinancialRequest[i], df.RecruitmentRequest[i]]]

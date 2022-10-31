@@ -4,9 +4,8 @@ from openpyxl import Workbook, load_workbook
 
 
 class Application:
-    def __init__(self, filename, typeOfAccess, newFormNum):
+    def __init__(self, filename, newFormNum):
         self.filename = filename
-        self.typeOfAccess = typeOfAccess
         self.newFormNum = newFormNum
 
 
@@ -14,9 +13,9 @@ class Application:
        self.application.close()
 
 
-    def showApplication(self):
+    def showApplication(self, filename):
         opener = "open" if sys.platform == "darwin" else "xdg-open"
-        subprocess.call([opener, self.filename])
+        subprocess.call([opener, filename])
 
     #create applications
     def createForm(self, type):
@@ -36,6 +35,7 @@ class Application:
         print(ws['A2'].value)
         dest_filename = 'Applications/' + type + str(caseNum) + '.xlsx'
         wb.save(dest_filename)
+        self.showApplication(dest_filename)
 
         return
 

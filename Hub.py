@@ -1,13 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
 from Home import HomePage
+from User import User
+from Database import Database
 
 
-class User:
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
+# class User:
+#     def __init__(self, username, password):
+#         self.username = username
+#         self.password = password
+#
 
 class Login(tk.Tk):
 
@@ -54,14 +56,18 @@ class Login(tk.Tk):
         self.style.configure('Heading.TLabel', font=('Helvetica', 12))
 
         def loginCheck(User):
-            print("1111111")
+            database = Database()
+            database.loadDatabase()
+            database.loadPermissions()
             User.username = username_entry.get()
             User.password = password_entry.get()
-            if User.username == User.password:  #Please add your checking on username and password code here!
-                # if user.login(username, password):
-                print("Log in successfully!")
-                # Redirecting to main menu
-                Main = Hub().mainMenu()
+            if User.username in database.userList and User.password == database.userList.get(User.username):
+                print(f'Login was successful for username {User.username}')
+                #setting type of the User
+                User.type = database.permissions.get(User.username)[0]
+                for counter, form in enumerate(database.fileList):
+                    User.permissions[form] = database.permissions.get(User.username)[1][counter]
+                Main = Hub().mainMenu(User)
             else:
                 print(currentUser.username)
                 print("Sorry, there seems to be a problem with you username or password")
@@ -76,8 +82,8 @@ class Hub:
         app = Login()
         app.mainloop()
 
-    def mainMenu(self):
-        root = HomePage()
+    def mainMenu(self, user):
+        root = HomePage(user)
         root.mainloop()
 
 
