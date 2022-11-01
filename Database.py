@@ -87,4 +87,4 @@ class Database:
                 worksheet.cell(cell.row, 2).value = newStatus
 
         workbook.save(self.path)
-        #end of function
+        return
