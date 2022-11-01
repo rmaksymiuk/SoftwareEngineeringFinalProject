@@ -3,6 +3,7 @@ from tkinter import ttk
 from User import User
 from Application import Application
 from EditForm import SearchFile
+from Database import Database
 
 # Callback functions for directing to desired files
 
@@ -49,6 +50,10 @@ def FRCallBack(user):
 def EFCallBack(user):
     SearchPage = SearchFile().mainloop()
 
+def statusOfApplication(applicationName, caseNum):
+    database = Database()
+    database.loadDatabase()
+    database.loadPermissions()
 
 class HomePage(tk.Tk):
     def __init__(self, user):

@@ -1,16 +1,23 @@
 import csv
 import os, sys, subprocess
 from openpyxl import Workbook, load_workbook
-
+from Database import Database
 
 class Application:
     def __init__(self, filename, newFormNum):
         self.filename = filename
         self.newFormNum = newFormNum
+        self.status = None
 
 
-    def closeApplication(self):
-       self.application.close()
+    def approveApplication(self):
+        self.status = 'Approved'
+
+    def rejectApplication(self):
+        self.status = 'Rejected'
+
+    def showStatus(self):
+        print(f'the status of this applicatoin is {self.status}')
 
 
     def showApplication(self, filename):
@@ -19,6 +26,7 @@ class Application:
 
     #create applications
     def createForm(self, type):
+        database = Database()
         #possible types of the forms:
         # ClientRequestDetails, FinancialRequest, EventPlanningRequest, RecruitmentRequest
         switcher = {'ClientRequestDetails': 'D3', 'FinancialRequest': 'E3',
@@ -35,6 +43,10 @@ class Application:
         print(ws['A2'].value)
         dest_filename = 'Applications/' + type + str(caseNum) + '.xlsx'
         wb.save(dest_filename)
+
+        #adding the file to the list with the status
+
+
         self.showApplication(dest_filename)
 
         return

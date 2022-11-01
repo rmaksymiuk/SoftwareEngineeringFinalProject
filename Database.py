@@ -1,4 +1,4 @@
-from openpyxl import Workbook
+from openpyxl import Workbook, load_workbook
 import os, sys, subprocess
 import xlsxwriter
 
@@ -12,11 +12,13 @@ class Database:
         self.userList = {}
         self.path = 'Database/database.xlsx'
         self.permissions = {}
+        self.status = {}
 
     def showDatabase(self):
         print(f'current applications: {self.fileList}')
         print(f'current users: {self.userList}')
         print(f'permissions: {self.permissions}')
+        print(f'permissions: {self.status}')
 
     def addFile(self, file):
         self.fileList.append(file)
@@ -44,6 +46,9 @@ class Database:
         workbook.close()
         return
 
+    def addFileStatus(self, sheetName):
+        workbook = load_workbook(self.path)
+
 
     def loadDatabase(self):
         sheet = "Sheet1"
@@ -59,3 +64,9 @@ class Database:
             self.permissions[df.Users[i]] = \
                 [df.Position[i],
                  [df.ClientRequest[i], df.EventPlanning[i], df.FinancialRequest[i], df.RecruitmentRequest[i]]]
+
+    def loadStatus(self):
+        sheet = "Status"
+        df = pd.read_excel(self.path, sheet_name = sheet)
+        for i in range(len(df.FileList)):
+            self.status[df.FileList[i]] = df.Status[i]
