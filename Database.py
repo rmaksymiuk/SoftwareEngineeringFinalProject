@@ -1,3 +1,4 @@
+import openpyxl
 from openpyxl import Workbook, load_workbook
 import os, sys, subprocess
 import xlsxwriter
@@ -18,7 +19,7 @@ class Database:
         print(f'current applications: {self.fileList}')
         print(f'current users: {self.userList}')
         print(f'permissions: {self.permissions}')
-        print(f'permissions: {self.status}')
+        print(f'status: {self.status}')
 
     def addFile(self, file):
         self.fileList.append(file)
@@ -46,8 +47,12 @@ class Database:
         workbook.close()
         return
 
-    def addFileStatus(self, sheetName):
+    def addFileStatus(self, caseNum, status):
         workbook = load_workbook(self.path)
+        worksheet = workbook['Status']
+        data = (caseNum, status)
+        worksheet.append(data)
+        workbook.save(self.path)
 
 
     def loadDatabase(self):
@@ -68,5 +73,5 @@ class Database:
     def loadStatus(self):
         sheet = "Status"
         df = pd.read_excel(self.path, sheet_name = sheet)
-        for i in range(len(df.FileList)):
-            self.status[df.FileList[i]] = df.Status[i]
+        for i in range(len(df.CaseNum)):
+            self.status[df.CaseNum[i]] = df.Status[i]

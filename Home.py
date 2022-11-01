@@ -50,10 +50,12 @@ def FRCallBack(user):
 def EFCallBack(user):
     SearchPage = SearchFile().mainloop()
 
-def statusOfApplication(applicationName, caseNum):
+def statusOfApplication(caseNum):
     database = Database()
-    database.loadDatabase()
-    database.loadPermissions()
+    database.loadStatus()
+    print(f'status of the {caseNum} is {database.status[caseNum]}')
+
+
 
 class HomePage(tk.Tk):
     def __init__(self, user):

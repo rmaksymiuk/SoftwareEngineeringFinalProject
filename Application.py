@@ -45,8 +45,7 @@ class Application:
         wb.save(dest_filename)
 
         #adding the file to the list with the status
-
-
+        database.addFileStatus(caseNum, 'In progress')
         self.showApplication(dest_filename)
 
         return
