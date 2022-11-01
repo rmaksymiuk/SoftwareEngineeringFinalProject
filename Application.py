@@ -7,7 +7,7 @@ class Application:
     def __init__(self, filename, newFormNum):
         self.filename = filename
         self.newFormNum = newFormNum
-        self.status = None
+        self.status = 'On Process'
 
 
     def approveApplication(self):
@@ -17,7 +17,7 @@ class Application:
         self.status = 'Rejected'
 
     def showStatus(self):
-        print(f'the status of this applicatoin is {self.status}')
+        print(f'the status of this application is {self.status}')
 
 
     def showApplication(self, filename):
