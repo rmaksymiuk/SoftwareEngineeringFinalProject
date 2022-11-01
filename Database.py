@@ -75,3 +75,16 @@ class Database:
         df = pd.read_excel(self.path, sheet_name = sheet)
         for i in range(len(df.CaseNum)):
             self.status[df.CaseNum[i]] = df.Status[i]
+
+    def changeStatus(self,caseNum, newStatus):
+        self.status[caseNum] = newStatus
+        row = 1
+        col = 0
+        workbook = load_workbook(self.path)
+        worksheet = workbook["Status"]
+        for cell in worksheet['A']:
+            if cell.value == caseNum:
+                worksheet.cell(cell.row, 2).value = newStatus
+
+        workbook.save(self.path)
+        #end of function
