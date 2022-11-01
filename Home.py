@@ -4,6 +4,7 @@ from User import User
 from Application import Application
 from EditForm import SearchFile
 from Database import Database
+from EditStatus import SearchFileStatus
 
 # Callback functions for directing to desired files
 
@@ -50,10 +51,8 @@ def FRCallBack(user):
 def EFCallBack(user):
     SearchPage = SearchFile().mainloop()
 
-def statusOfApplication(caseNum):
-    database = Database()
-    database.loadStatus()
-    print(f'status of the {caseNum} is {database.status[caseNum]}')
+def statusOfApplication():
+    SearchPage = SearchFileStatus().mainloop()
 
 
 
@@ -64,6 +63,8 @@ class HomePage(tk.Tk):
 
         self.title("Swedish Events Planners")
         self.configure(bg="white")
+        label1 = tk.Label(self, text="Welcome! "+ user.username)
+        label1.grid(row=2, column=2)
         # Button for creating new files
         B1 = tk.Button(self, text="Create a new Event Planning Request", command=lambda:EPRCallBack(self.user))
         B1.grid(row=5, column=1)
@@ -84,9 +85,12 @@ class HomePage(tk.Tk):
         B7.grid(row=11, column=3)
         B8 = tk.Button(self, text="Edit an existing Financial Request", command=lambda:EFCallBack(self.user))
         B8.grid(row=14, column=3)
+        B9 = tk.Button(self, text="Change Case Status", command=statusOfApplication)
+        B9.grid(row=20, column=2)
 
 
 if __name__ == "__main__":
-    root = HomePage()
+    user = User('Roman123', 'password')
+    root = HomePage(user)
     root.mainloop()
 
